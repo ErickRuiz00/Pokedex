@@ -7,7 +7,7 @@ function PokemonViewer({ pokemon }) {
     <section className="pokemon-viewer__container">
       <div className="pokemon-viewer__details">
         <h2>{pokemon.name}</h2>
-        <p>{pokemon.id}</p>
+        <p>N.° {pokemon.id}</p>
       </div>
 
       <div className="pokemon-viewer__img-container">
@@ -28,24 +28,27 @@ function PokemonViewer({ pokemon }) {
         </div>
 
         <div className="pokemon-viewer__stats-abilities">
+          <h4>Ataques:</h4>
           {pokemon.abilities.map((ability, i) => (
-            <span key={i} className="pokemon-ability">
-              {ability}
-            </span>
+              <span key={i} className="pokemon-ability">
+                {ability} {i < pokemon.abilities.length - 1 && '|'}&nbsp;
+              </span>
           ))}
         </div>
 
         <div className="pokemon-viewer__stats-base-stats">
+          <h4>Estadísticas:</h4>
           {pokemon.stats.map((stat, i) => (
             <span key={i} className="pokemon-stat">
-              {stat.name}:{stat.base_stat}
+              {stat.name}: {stat.base_stat} {i < pokemon.stats.length - 1 && '|'}&nbsp;
             </span>
           ))}
         </div>
 
         <div className="pokemon-viewer__stats-weight-height">
-          <span>Weight: {pokemon.weight}</span>
-          <span>Height: {pokemon.height}</span>
+          <span>Peso: {pokemon.weight} {'|'}&nbsp;</span>
+          
+          <span>Talla: {pokemon.height}</span>
         </div>
       </div>
     </section>

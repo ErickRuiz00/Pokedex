@@ -33,12 +33,18 @@ function PokemonList({ choosePokemon, showStock }) {
   }, [showStock]);
 
   if (showStock && pokemonList.length === 0)
-    return <div>Aún no tienes pokemons</div>;
+    return (
+      <div className="empty-list">
+        <p>Aún no tienes pokemons</p> 
+      </div>
+    );
   if (pokemonList.length === 0) return <Loader />;
 
   return (
     <div className="pokemon-list">
-      <h1 className="list-title">Pokemon List</h1>
+      <h1 className="list-title">{
+        showStock? "Mis pokemons" : "Lista de Pokemons"
+      }</h1>
       <p>Selecciona un pokemon para obtener más información</p>
       <section className="pokemon-list-container">
         {pokemonList.map((pokemon) => (
