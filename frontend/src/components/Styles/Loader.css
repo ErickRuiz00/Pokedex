@@ -9,7 +9,7 @@
 .loader {
   width: 75px; 
   height: 75px;
-  background-image: url('C:/Users/eriru/OneDrive/Desktop/Erick/ProyectosPropios/Pokedex/frontend/public/images/Pokeball.png'); 
+  background-image: url('../../../public/images/Pokeball.png'); 
   background-size: contain;
   animation: spin 1s linear infinite;
   background-repeat: no-repeat;
