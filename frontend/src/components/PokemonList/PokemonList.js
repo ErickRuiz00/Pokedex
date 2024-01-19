@@ -1,21 +1,25 @@
 import { useEffect, useState } from "react";
 import PokemonListItem from "./PokemonListItem";
+import Loader from "../Loader";
 import "./Styles/PokemonList.css";
 
 function PokemonList({ choosePokemon }) {
   const [pokemonList, setPokemonList] = useState([]);
   useEffect(() => {
-    const getPokemons = async () => {
-      const res = await fetch("http://localhost:3001/");
-      const pokemonDetails = await res.json();
+    try {
+      const getPokemons = async () => {
+        const res = await fetch("http://localhost:3001/?page=3&limit=500");
+        const pokemonDetails = await res.json();
+        setPokemonList(await Promise.all(pokemonDetails));
+      };
 
-      setPokemonList(await Promise.all(pokemonDetails));
-    };
-
-    getPokemons();
+      getPokemons();
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
-  if (pokemonList.length === 0) return;
+  if (pokemonList.length === 0) return <Loader />;
 
   return (
     <div className="pokemon-list">

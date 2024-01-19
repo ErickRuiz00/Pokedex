@@ -1,0 +1,21 @@
+.loader-container {
+  display: flex;
+  width: 75%;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.loader {
+  width: 75px; 
+  height: 75px;
+  background-image: url('C:/Users/eriru/OneDrive/Desktop/Erick/ProyectosPropios/Pokedex/frontend/public/images/Pokeball.png'); 
+  background-size: contain;
+  animation: spin 1s linear infinite;
+  background-repeat: no-repeat;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
