@@ -7,24 +7,7 @@ function PokemonList({ choosePokemon }) {
   useEffect(() => {
     const getPokemons = async () => {
       const res = await fetch("http://localhost:3001/");
-      const results = await res.json();
-      console.log(results);
-      // const { results } = data;
-
-      const pokemonDetails = results.map(async (pokemon) => {
-        const res = await fetch(pokemon.url);
-        const individualPokemon = await res.json();
-        return {
-          id: individualPokemon.id,
-          name: individualPokemon.name,
-          type: individualPokemon.types,
-          url_img: individualPokemon.sprites.other.dream_world.front_default,
-          abilities: individualPokemon.abilities,
-          stats: individualPokemon.stats,
-          height: individualPokemon.height,
-          weight: individualPokemon.weight,
-        };
-      });
+      const pokemonDetails = await res.json();
 
       setPokemonList(await Promise.all(pokemonDetails));
     };
