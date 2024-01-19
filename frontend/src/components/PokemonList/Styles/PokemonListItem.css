@@ -1,6 +1,7 @@
 .pokemon-item-container {
   transition: all 0.2s ease-in-out;
   border-radius: 8px;
+  position: relative;
 }
 
 .pokemon-item-container:hover {
@@ -128,3 +129,4 @@
   background: #fdb9e9;
   color: #000;
 }
+

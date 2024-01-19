@@ -1,40 +1,27 @@
 import PokemonViewer from "./PokemonViewer";
 import SearchBar from "./SearchBar";
 import SidebarButton from "./SidebarButton";
-import {
-  FaBox,
-  FaHome,
-  FaPlusCircle,
-  FaRegEdit,
-  FaTrash,
-} from "react-icons/fa";
+import { FaBox, FaHome } from "react-icons/fa";
 import "./Styles/Sidebar.css";
 
-const btnOpt = {
+const btnOptions = {
   size: 20,
   color: "white",
 };
 
-function Sidebar({ pokemon }) {
+function Sidebar({ pokemon, setShowStock }) {
   return (
     <div className="main-container">
       <img src="/images/pokedex-logo.png" alt="Logo Pokedex" className="logo" />
       <SearchBar />
       <div className="btn-section">
         <SidebarButton
-          icon={<FaHome size={btnOpt.size} color={btnOpt.color} />}
+          icon={<FaHome size={btnOptions.size} color={btnOptions.color} />}
+          action={() => setShowStock(false)}
         />
         <SidebarButton
-          icon={<FaBox size={btnOpt.size} color={btnOpt.color} />}
-        />
-        <SidebarButton
-          icon={<FaPlusCircle size={btnOpt.size} color={btnOpt.color} />}
-        />
-        <SidebarButton
-          icon={<FaRegEdit size={btnOpt.size} color={btnOpt.color} />}
-        />
-        <SidebarButton
-          icon={<FaTrash size={btnOpt.size} color={btnOpt.color} />}
+          icon={<FaBox size={btnOptions.size} color={btnOptions.color} />}
+          action={() => setShowStock(true)}
         />
       </div>
       <PokemonViewer pokemon={pokemon} />

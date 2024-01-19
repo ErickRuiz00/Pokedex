@@ -1,24 +1,39 @@
 import { useEffect, useState } from "react";
 import PokemonListItem from "./PokemonListItem";
+import axios from "axios";
 import Loader from "../Loader";
 import "./Styles/PokemonList.css";
 
-function PokemonList({ choosePokemon }) {
+function PokemonList({ choosePokemon, showStock }) {
   const [pokemonList, setPokemonList] = useState([]);
   useEffect(() => {
     try {
-      const getPokemons = async () => {
-        const res = await fetch("http://localhost:3001/?page=3&limit=500");
-        const pokemonDetails = await res.json();
-        setPokemonList(await Promise.all(pokemonDetails));
-      };
+      if (!showStock) {
+        const getPokemons = async () => {
+          const pokemonDetails = await axios.get(
+            "http://localhost:3001/api/?page=1&limit=50"
+          );
+          setPokemonList(await pokemonDetails.data);
+        };
 
-      getPokemons();
+        getPokemons();
+      } else {
+        const getPokemons = async () => {
+          const pokemonDetails = await axios.get(
+            "http://localhost:3001/api/stock"
+          );
+          setPokemonList(await pokemonDetails.data);
+        };
+
+        getPokemons();
+      }
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  }, [showStock]);
 
+  if (showStock && pokemonList.length === 0)
+    return <div>Aún no tienes pokemons</div>;
   if (pokemonList.length === 0) return <Loader />;
 
   return (
@@ -31,6 +46,7 @@ function PokemonList({ choosePokemon }) {
             pokemon={pokemon}
             key={pokemon.id}
             choosePokemon={choosePokemon}
+            showStock={showStock}
           />
         ))}
       </section>

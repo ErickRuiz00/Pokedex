@@ -20,9 +20,9 @@ function PokemonViewer({ pokemon }) {
 
       <div className="pokemon-viewer__stats">
         <div className="pokemon-viewer__stats-type">
-          {pokemon.type.map((hability, i) => (
-            <span key={i} className={`pokemon-type ${hability.type.name}`}>
-              {hability.type.name}
+          {pokemon.type.map((name, i) => (
+            <span key={i} className={`pokemon-type ${name}`}>
+              {name}
             </span>
           ))}
         </div>
@@ -30,7 +30,7 @@ function PokemonViewer({ pokemon }) {
         <div className="pokemon-viewer__stats-abilities">
           {pokemon.abilities.map((ability, i) => (
             <span key={i} className="pokemon-ability">
-              {ability.ability.name}
+              {ability}
             </span>
           ))}
         </div>
@@ -38,7 +38,7 @@ function PokemonViewer({ pokemon }) {
         <div className="pokemon-viewer__stats-base-stats">
           {pokemon.stats.map((stat, i) => (
             <span key={i} className="pokemon-stat">
-              {stat.stat.name}:{stat.base_stat}
+              {stat.name}:{stat.base_stat}
             </span>
           ))}
         </div>
