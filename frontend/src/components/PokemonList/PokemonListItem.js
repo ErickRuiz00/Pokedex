@@ -5,9 +5,8 @@ import axios from "axios";
 
 function PokemonListItem({ pokemon, choosePokemon, showStock }) {
   const handleOnAdd = async (pokemon) => {
-    console.log(pokemon)
     try {
-      const res = await axios.post("http://localhost:3001/api/stock", {
+      await axios.post("http://localhost:3001/api/stock", {
         id: pokemon.id,
         name: pokemon.name,
         type: pokemon.type,
@@ -17,16 +16,13 @@ function PokemonListItem({ pokemon, choosePokemon, showStock }) {
         height: pokemon.height,
         weight: pokemon.weight,
       });
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
   };
 
   const handleOnDelete = async (pokemon) => {
-    console.log(pokemon)
     try {
-      console.log(pokemon);
       const res = await axios.delete(
         `http://localhost:3001/api/stock/${pokemon.id}`
       );

@@ -1,11 +1,18 @@
 import { Router } from "express";
-import { fetchPokemons, addNewPokemon, getMyPokemons, deletePokemon } from "../controllers/pokemon.controller.js";
+import {
+  fetchPokemons,
+  addNewPokemon,
+  getMyPokemons,
+  deletePokemon,
+  findPokemon,
+} from "../controllers/pokemon.controller.js";
 const router = Router();
 
 router.get("/", fetchPokemons);
+router.get("/stock", getMyPokemons);
+router.post("/stock", addNewPokemon);
 
-router.post("/stock", addNewPokemon)
-router.get("/stock", getMyPokemons)
-router.delete("/stock/:id", deletePokemon)
+router.post("/:name", findPokemon);
+router.delete("/stock/:id", deletePokemon);
 
 export default router;

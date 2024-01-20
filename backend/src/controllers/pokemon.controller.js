@@ -13,10 +13,14 @@ const getAllPokemons = async () => {
   );
 };
 
-const getPokemonDetails = async (limit, page) => {
+const getPokemonDetails = async (
+  limit = 500,
+  page = 1,
+  pokemons = cachedPokemons
+) => {
   const startIndex = limit * (page - 1);
   const endIndex = startIndex + limit;
-  const paginatedPokemons = cachedPokemons.slice(startIndex, endIndex);
+  const paginatedPokemons = pokemons.slice(startIndex, endIndex);
 
   return Promise.all(
     paginatedPokemons.map(async (pokemon) => {
@@ -32,7 +36,7 @@ const getPokemonDetails = async (limit, page) => {
         };
       });
 
-      return {
+      const pokemonDetails = {
         id: data.id,
         name: data.name,
         type: newTypes,
@@ -44,6 +48,8 @@ const getPokemonDetails = async (limit, page) => {
         height: data.height,
         weight: data.weight,
       };
+
+      return pokemonDetails;
     })
   );
 };
@@ -60,6 +66,46 @@ export const fetchPokemons = async (req, res) => {
     res.status(500).json({
       succes: false,
       message: "Error en la petición",
+      error: error.message,
+    });
+  }
+};
+
+export const findPokemon = async (req, res) => {
+  try {
+    if (req.params.name === "") {
+      const pokemons = await getPokemonDetails();
+      res.json({
+        success: true,
+        matchedPokemonDetails: pokemons,
+      });
+    }
+    const findName = req.params.name.toLowerCase();
+
+    const matchedPokemons = cachedPokemons.filter((pokemon) =>
+      pokemon.name.includes(findName)
+    );
+
+    if (matchedPokemons.length === 0)
+      return res.json({
+        success: false,
+        message: "Sin coincidencias",
+      });
+
+    const matchedPokemonDetails = await getPokemonDetails(
+      32,
+      1,
+      matchedPokemons
+    );
+
+    res.json({
+      success: true,
+      matchedPokemonDetails,
+    });
+  } catch (error) {
+    res.json({
+      success: false,
+      message: "Ocurrió un error con la solicitud",
       error: error.message,
     });
   }
@@ -101,7 +147,7 @@ export const getMyPokemons = async (req, res) => {
 
 export const deletePokemon = async (req, res) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
     const pokemon = await Pokemon.findOneAndDelete({ id });
     if (!pokemon)
       return res.status(404).json({ message: "Pokemon no encontrado" });

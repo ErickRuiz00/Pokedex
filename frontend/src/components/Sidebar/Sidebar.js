@@ -9,11 +9,11 @@ const btnOptions = {
   color: "white",
 };
 
-function Sidebar({ pokemon, setShowStock }) {
+function Sidebar({ pokemon, setShowStock, setPokemonList, pokemonList }) {
   return (
     <div className="main-container">
       <img src="/images/pokedex-logo.png" alt="Logo Pokedex" className="logo" />
-      <SearchBar />
+      <SearchBar setPokemonList={setPokemonList} pokemonList={pokemonList} setShowStock={setShowStock}/>
       <div className="btn-section">
         <SidebarButton
           icon={<FaHome size={btnOptions.size} color={btnOptions.color} />}
